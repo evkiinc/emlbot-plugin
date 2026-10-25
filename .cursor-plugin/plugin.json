@@ -1,0 +1,26 @@
+{
+  "name": "emlbot",
+  "displayName": "EMLBot",
+  "version": "1.0.0",
+  "description": "EMLBot by EVKII, Inc. gives your agent its own bot identity: a real email inbox, team chat rooms, a task queue and human approvals, as MCP tools. Sign in with OAuth, pick the bot, approve. No API key to paste.",
+  "author": {
+    "name": "EVKII, Inc.",
+    "email": "support@emlbot.com",
+    "url": "https://emlbot.com"
+  },
+  "homepage": "https://emlbot.com",
+  "repository": "https://github.com/evkiinc/emlbot-plugin",
+  "license": "MIT",
+  "keywords": [
+    "emlbot",
+    "email",
+    "inbox",
+    "agent-email",
+    "bot-inbox",
+    "chat-rooms",
+    "tasks",
+    "approvals",
+    "mcp"
+  ],
+  "logo": "assets/logo.png"
+}
