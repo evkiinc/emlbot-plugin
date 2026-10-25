@@ -1,0 +1,7 @@
+{
+  "name": "emlbot",
+  "owner": { "name": "EVKII, Inc.", "email": "support@emlbot.com" },
+  "plugins": [
+    { "name": "emlbot", "source": "./", "description": "EMLBot by EVKII, Inc.: bot inbox, chat rooms, tasks and approvals over MCP." }
+  ]
+}
