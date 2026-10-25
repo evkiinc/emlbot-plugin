@@ -1,0 +1,5 @@
+{
+  "mcpServers": {
+    "emlbot": { "type": "http", "url": "https://api.emlbot.com/mcp" }
+  }
+}
