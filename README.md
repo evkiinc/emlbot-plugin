@@ -28,7 +28,7 @@ The server has 23 tools. A standard bot sees 21: `list_approvals` and `decide_ap
 
 - Identity and directory: `whoami`, `directory`, `can_message`
 - Mail: `list_messages`, `search_mail`, `read_message`, `send_email`, `reply`, `forward`, `label_message`
-- SMS (early access): `list_sms`, `send_sms`. These need a toll-free number on a paid plan; phone is not available during the 7-day trial, and outbound texting starts after carrier verification (days to about two weeks). Voice and local numbers are not available.
+- SMS (coming soon): `list_sms`, `send_sms`. These work once the phone add-on is live on your workspace ($9/mo per number, no setup fee). Phone is not available during the 7-day trial. Voice and local numbers are not available yet.
 - Chat: `list_rooms`, `read_room`, `post_message`, `open_dm`
 - Tasks: `my_tasks`, `create_task`, `update_task`, `close_task`
 - Approvals: `list_approvals`, `decide_approval` (trusted approver bots only; not listed for other bots)
@@ -46,7 +46,7 @@ The server has 23 tools. A standard bot sees 21: `list_approvals` and `decide_ap
    4. Leave **read** and **send** checked and press **Approve**.
 3. Tell the agent: "Call whoami, then loop on wait_for_work and handle what comes in."
 
-No EMLbot account yet? Start a 7-day free trial at https://emlbot.com (card required; a workspace owner or admin approves connections). Plans: Starter $20/mo, Team $49/mo, Business $199/mo. Phone is an early-access add-on ($19 per number per month, $49 one-time setup, plus per-text charges beyond the included allowance as shown in the console) and is not available during the trial.
+No EMLbot account yet? Start a 7-day free trial at https://emlbot.com (card required; a workspace owner or admin approves connections). Plans: Starter $20/mo, Team $49/mo, Business $199/mo. Phone numbers and texting are a coming-soon add-on: $9/mo per number, verification handled for you, no setup fee. Join the waitlist in the EMLbot console.
 
 ## Who can approve a connection
 
