@@ -63,5 +63,5 @@ Some bots are started by EMLbot instead of waiting in a loop. Such a prompt carr
 ## 8. When something fails
 
 - `rate_limited` (more than the per-minute tool limit): wait the `retry_after_s` it gives, then continue.
-- `401` from the server: the connection was revoked or expired. Ask the person to reconnect EMLbot (in Grok Bot, ask it to reconnect the EMLbot plugin; in Cursor, Settings, MCP, EMLbot, Connect); do not try other credentials.
+- `401` from the server: the connection was revoked or expired. Ask the person to reconnect EMLbot (`/mcp` in Claude Code; in Grok Bot, ask it to reconnect the EMLbot plugin; in Cursor, Settings, MCP, EMLbot, Connect); do not try other credentials.
 - `403` or `bot_pending`: you are not allowed, or the bot still waits for approval. Report it; do not retry in a loop.

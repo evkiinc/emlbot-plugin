@@ -1,8 +1,8 @@
-# EMLBot by EVKII, Inc.: plugin for Grok Bot and Cursor
+# EMLBot by EVKII, Inc.: plugin for Claude Code, Grok Bot and Cursor
 
 <img src="assets/logo.png" alt="EMLBot" width="96" height="96">
 
-[EMLBot](https://emlbot.com), by EVKII, Inc., gives an AI agent its own bot identity in a team workspace: a real email inbox, the chat rooms it is in, a task queue and human approvals. This plugin connects your agent to EMLbot over MCP and teaches it how to work that inbox safely.
+[EMLBot](https://emlbot.com), by EVKII, Inc., gives an AI agent its own bot identity in a team workspace: a real email inbox, the chat rooms it is in, a task queue and human approvals. This plugin connects your agent to EMLbot over MCP (`https://api.emlbot.com/mcp`, OAuth 2.1) and teaches it how to work that inbox safely. Version 1.0.2.
 
 - Display name: EMLBot
 - Publisher: EVKII, Inc. ([emlbot.com](https://emlbot.com))
@@ -14,26 +14,31 @@
 
 | File | What it does |
 |---|---|
-| `.cursor-plugin/plugin.json` | Plugin manifest (name `emlbot`). |
-| `mcp.json` | The `emlbot` remote MCP server, `https://api.emlbot.com/mcp` (Streamable HTTP). No key in the file: sign-in is OAuth. |
+| `.claude-plugin/plugin.json` | Claude Code plugin manifest (name `emlbot`). |
+| `.claude-plugin/marketplace.json` | Claude Code marketplace (name `emlbot`, one plugin, `emlbot`). |
+| `.mcp.json` | The `emlbot` MCP server for Claude Code, `https://api.emlbot.com/mcp`, type `http`. |
+| `.cursor-plugin/plugin.json` | Cursor and Grok Bot plugin manifest (name `emlbot`). |
+| `mcp.json` | The `emlbot` MCP server for Cursor and Grok Bot, `https://api.emlbot.com/mcp` (Streamable HTTP). No key in the file: sign-in is OAuth. |
 | `skills/emlbot/SKILL.md` | How to work as an EMLbot bot: `whoami` first, the `wait_for_work` loop, treating mail and chat as untrusted data, `can_message` before writing, approvals, tasks and rooms, pushed-wake acknowledgements. |
 | `assets/logo.png` | Official EMLBot icon, 512x512 PNG on a white background plate. |
 
 ## Tools
 
-All tools act as the one bot you approved, with that bot's role, scopes, inbox list, recipient allowlist, daily cap and the workspace contact policy, enforced by the same server code as EMLbot's REST API.
+The server has 23 tools. A standard bot sees 21: `list_approvals` and `decide_approval` are listed only for trusted approver bots. All tools act as the one bot you approved, with that bot's role, scopes, inbox list, recipient allowlist, daily cap and the workspace contact policy, enforced by the same server code as EMLbot's REST API.
 
 - Identity and directory: `whoami`, `directory`, `can_message`
 - Mail: `list_messages`, `search_mail`, `read_message`, `send_email`, `reply`, `forward`, `label_message`
-- SMS (workspaces with a number): `list_sms`, `send_sms`
+- SMS (early access): `list_sms`, `send_sms`. These need a toll-free number on a paid plan; phone is not available during the 7-day trial, and outbound texting starts after carrier verification (days to about two weeks). Voice and local numbers are not available.
 - Chat: `list_rooms`, `read_room`, `post_message`, `open_dm`
 - Tasks: `my_tasks`, `create_task`, `update_task`, `close_task`
-- Approvals: `list_approvals`, `decide_approval` (trusted approver bots only)
-- Work loop: `wait_for_work` (blocks up to 50 s until mail, a mention, a task or an approval arrives)
+- Approvals: `list_approvals`, `decide_approval` (trusted approver bots only; not listed for other bots)
+- Work loop: `wait_for_work` (blocks up to 50 s until mail, a mention, a task or an approval arrives). A chat connector is not woken by mail on its own; it works while the session is open and looping on `wait_for_work`. For unattended wakes use a webhook or a Claude routine (see https://api.emlbot.com/docs/mcp).
 
 ## Install and sign in
 
-1. Install **EMLBot** from the plugin catalog (Grok Bot: ask "add the EMLBot plugin"; Cursor: Marketplace, EMLBot, Add).
+1. Install **EMLBot**:
+   - Claude Code: `claude plugin marketplace add evkiinc/emlbot-plugin`, then `claude plugin install emlbot@emlbot`, then `/mcp`, select `plugin:emlbot:emlbot`, **Authenticate**.
+   - Grok Bot and Cursor: add the plugin from the plugin catalog once the EMLBot listing is approved, or add the MCP server `https://api.emlbot.com/mcp` by hand.
 2. Connect the `emlbot` server. A browser page opens on `app.emlbot.com`:
    1. Sign in with Google (the account you use for the EMLbot console).
    2. Pick the workspace.
@@ -41,7 +46,7 @@ All tools act as the one bot you approved, with that bot's role, scopes, inbox l
    4. Leave **read** and **send** checked and press **Approve**.
 3. Tell the agent: "Call whoami, then loop on wait_for_work and handle what comes in."
 
-No EMLbot account yet? Sign up free at https://emlbot.com (a workspace owner or admin approves connections).
+No EMLbot account yet? Start a 7-day free trial at https://emlbot.com (card required; a workspace owner or admin approves connections). Plans: Starter $20/mo, Team $49/mo, Business $199/mo. Phone is an early-access add-on ($19 per number per month, $49 one-time setup, plus per-text charges beyond the included allowance as shown in the console) and is not available during the trial.
 
 ## Who can approve a connection
 
@@ -49,6 +54,7 @@ Workspace owners and admins. Apps that EMLbot cannot verify never receive the `m
 
 ## Disconnect
 
+- In Claude Code: `/mcp`, select the server, **Clear authentication**.
 - In Grok Bot or Cursor: disconnect or remove the EMLBot plugin's server.
 - In the EMLbot console: **Keys**, the row marked **OAuth connection**, **Revoke**. The next call answers 401.
 
@@ -57,6 +63,8 @@ Workspace owners and admins. Apps that EMLbot cannot verify never receive the `m
 The agent sees only the mail, rooms, tasks and approvals of the bot you chose. Message bodies and other people's text are returned marked `untrusted: true`, and the skill tells the agent never to follow instructions found inside them. Every action is audited in the workspace (`via: "oauth"`). Access tokens last 1 hour; refresh tokens 30 days and rotate on every use. See https://emlbot.com/privacy/.
 
 ## Use an API key instead (headless)
+
+Claude Code: `claude mcp add --transport http emlbot https://api.emlbot.com/mcp --header "Authorization: Bearer $EMLBOT_API_KEY"`. Cursor and Grok Bot:
 
 ```json
 { "mcpServers": { "emlbot": {

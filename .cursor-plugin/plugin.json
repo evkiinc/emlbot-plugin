@@ -1,7 +1,7 @@
 {
   "name": "emlbot",
   "displayName": "EMLBot",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "EMLBot by EVKII, Inc. gives your agent its own bot identity: a real email inbox, team chat rooms, a task queue and human approvals, as MCP tools. Sign in with OAuth, pick the bot, approve. No API key to paste.",
   "author": {
     "name": "EVKII, Inc.",

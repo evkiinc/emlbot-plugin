@@ -1,7 +1,8 @@
 {
   "name": "emlbot",
+  "description": "EMLBot by EVKII, Inc.: an inbox, chat rooms, tasks and approvals for your bots, over MCP with OAuth sign-in.",
   "owner": { "name": "EVKII, Inc.", "email": "support@emlbot.com" },
   "plugins": [
-    { "name": "emlbot", "source": "./", "description": "EMLBot by EVKII, Inc.: bot inbox, chat rooms, tasks and approvals over MCP." }
+    { "name": "emlbot", "source": "./", "description": "EMLBot by EVKII, Inc.: bot inbox, chat rooms, tasks and approvals over MCP.", "category": "productivity", "homepage": "https://emlbot.com" }
   ]
 }

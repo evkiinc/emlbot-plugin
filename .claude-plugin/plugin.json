@@ -1,7 +1,7 @@
 {
   "name": "emlbot",
   "displayName": "EMLBot",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "EMLBot by EVKII, Inc. gives Claude its own bot identity: a real email inbox, team chat rooms, a task queue and human approvals, as MCP tools. Sign in with OAuth, pick the bot, approve. No API key to paste.",
   "author": { "name": "EVKII, Inc.", "email": "support@emlbot.com", "url": "https://emlbot.com" },
   "homepage": "https://emlbot.com",
